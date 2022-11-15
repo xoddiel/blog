@@ -1,0 +1,30 @@
+---
+layout: page
+title: PSX - Game
+---
+:markdown
+	A while ago I dove into the messy world of game development for the [first PlayStation](https://en.wikipedia.org/
+	wiki/PlayStation_(console)) (*PSX*). Since there are not many good resources for developing *PSX* homebrew out 
+	there, I've decided to be the change I want to see in the world, and started an educational series of posts showing 
+	off how to do it. Or at least, how I do it. You can find the first installment of this series [here](/2022/11/15/psx
+	-the-calling.html).
+
+%h2 Source code
+:markdown
+	The source code for the series can be found on my GitHub, at [`xoddiel/psx-game`](https://github.com/xoddiel/
+	psx-game).
+
+%h2 Posts
+
+%div.posts
+	{% assign feed = site.categories['psx-game'] | sort: 'date' %}
+	{% for post in feed reversed %}
+	%div.post
+		%h2
+			%a(href='{{ post.url | relative_url }}') {{ post.title }}
+			{% for category in post.categories %}
+			%a.badge(href='/category/{{ category }}') {{ category }}
+			{% endfor %}
+			%small.right {{ post.date | date: '%Y-%m-%d'}}
+		%p {{ post.excerpt | strip_newlines }}
+	{% endfor %}

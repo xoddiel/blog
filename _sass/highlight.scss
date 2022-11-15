@@ -1,0 +1,29 @@
+pre.highlight span {
+  &.c, &.c1 {
+    color: #7c7c7c;
+  }
+  
+  &.s, &.s1, &.s2 {
+    color: #99be70;
+  }
+  
+  &.py, &.nl, &.nn {
+    color: #cfba8b;
+  }
+  
+  &.k, &.nb {
+    color: #f05e48;
+  }
+  
+  &.nf {
+    color: #fad566;
+  }
+   
+  &.nd, &.mi, &.mo, &.mx, &.mb, &.mh {
+    color: #86c1b9;
+  }
+  
+  &.nv {
+    color: #f3f2cc;
+  }
+}

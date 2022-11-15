@@ -1,0 +1,16 @@
+url: "https://xoddiel.net"
+baseurl: ""
+title: "Xoddiel's Blog"
+
+author: 
+  name: "Xoddiel d'Croy"
+  email: xoddiel.dcroy@gmail.com
+  uri: https://xoddiel.net
+
+permalink: '/:year/:month/:day/:title:output_ext'
+
+jekyll-archives:
+  enabled: ['categories']
+
+feed:
+  excerpt_only: true

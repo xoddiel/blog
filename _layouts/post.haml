@@ -1,0 +1,10 @@
+---
+layout: default
+---
+%h1 
+	= "{{ page.title }}"
+	{% for category in page.categories %}
+	%a.badge(href='/category/{{ category }}') {{ category }}
+	{% endfor %}
+	%small.right {{ page.date | date: '%Y-%m-%d' }}
+{{ content }}

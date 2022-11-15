@@ -1,0 +1,64 @@
+---
+title: Home
+layout: default
+---
+%h1 Welcome!
+
+.aside
+	%img(alt='Xoddiel by @Dracononite on Twitter' src='{{ "/assets/img/xoddiel.png" | relative_url }}')
+	:markdown
+		Xoddiel drawn by the amazing [@Dracononite](https://twitter.com/Dracononite) on Twitter
+
+:markdown
+	Hey! I go by *Xoddiel d'Croy*, and I'm a software engineer living in the Netherlands. This is a blog all about 
+	technology, science, society and socialism. Beware that some posts may relate to mature or even explicit themes. 
+	This blog is thus rated **18+**! Also note that I am a member of the [furry](https://en.wikipedia.org/wiki/Furry
+	_fandom) community, which explains the fun pseudonym and the fish-looking thing on the right. I hope that most of what 
+	I create here will have some educational value, though the occasional rant may slip through.
+
+	You may find me on Twitter [@xoddiel](https://twitter.com/xoddiel), though be warned that the account is mostly geared 
+	towards furries and is often sexually explicit. You may reach out to me via good 'ol email at 
+	[xoddiel.dcroy@gmail.com](mailto:xoddiel.dcroy@gmail.com). Most of my published work is available on my 
+	[GitHub](https://github.com/xoddiel). Note that I sign **all** of my commits with a GPG key 
+	([`13B5FBD224407F286E9634092F57107D73E723BE`](http://keyserver.ubuntu.com/pks/lookup?search=
+	0x13B5FBD224407F286E9634092F57107D73E723BE&fingerprint=on&op=index)). As a matter of fact, you may find this blog 
+	there as well [`xoddiel/blog`](https://github.com/xoddiel/blog). If you feel like adding this blog to your feed reader, 
+	you can subscribe to this blog's Atom feed [here](/feed.xml).
+
+	Note that all content on this website is licensed under [CC-BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). 
+	Which basically means that you may create derivative work, but must credit me and republish your derivatives under the 
+	same or compatible license.
+
+%h1 Posts
+%div.posts
+	{% assign feed = site.posts | sort: 'date' %}
+	{% for post in feed reversed %}
+	%div.post
+		%h2
+			%a(href='{{ post.url | relative_url }}') {{ post.title }}
+			{% for category in post.categories %}
+			%a.badge(href='/category/{{ category }}') {{ category }}
+			{% endfor %}
+			%small.right {{ post.date | date: '%Y-%m-%d'}}
+		%p {{ post.excerpt | strip_newlines }}
+	{% endfor %}
+
+%h1 Categories
+%p.categories
+	='The following categories are available: '
+	{% for category in site.categories %}
+	{% unless forloop.first %}
+	=', '
+	{% endunless %}
+	%a(href='/category/{{ category[0] }}') {{ category[0] }}
+	{% if forloop.last %}
+	='.'
+	{% endif %}
+	{% endfor %}
+
+	%h1 Acknowledgments
+	:markdown
+		This site is powered by [Jekyll v4](https://jekyllrb.com/), the [JetBrains - Mono](https://fonts.google.com/
+		specimen/JetBrains+Mono) monospace font and the [Lato](https://fonts.google.com/specimen/Lato) font. Colors for 
+		code highlighting were taken from the [helix](https://helix-editor.com/) [autumn](https://github.com/
+		helix-editor/helix/blob/16525349dbb2b72064e1cfb5cc3164dc236fd367/runtime/themes/autumn.toml) theme.

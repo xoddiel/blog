@@ -1,0 +1,18 @@
+@mixin for-colors {
+		@each $name, $color in $palette {
+				&.#{$name} {
+						@content($color);
+				}
+		}
+}
+
+@mixin column-container($y: 0) {
+		margin: $y auto;
+		max-width: $column;
+}
+
+@mixin non-mobile {
+	@media screen and (min-width: $column) {
+		@content;
+	}
+}

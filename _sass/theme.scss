@@ -1,0 +1,24 @@
+@import 'font';
+
+$font: 'Lato', Helvetica, sans-serif;
+$mono-font: 'JetBrains-Mono', monospace;
+$background: #353535;
+$background-dim: #2d2d2d;
+$text: #f0f0f0;
+$text-dim: #909090;
+
+$theme-red: #FF0033;
+$theme-orange: #FF7700;
+$theme-yellow: #FFAA00;
+$theme-green: #AADD22;
+$theme-blue: #0088FF;
+$theme-violet: #9911AA;
+
+$palette: (
+		'red': $theme-red,
+		'orange': $theme-orange,
+		'yellow': $theme-yellow,
+		'green': $theme-green,
+		'blue': $theme-blue,
+		'violet': $theme-violet
+);

@@ -1,0 +1,18 @@
+---
+layout: default
+---
+%h1 
+	='Category: '
+	%i {{ page.title }}
+%div.posts
+	{% assign feed = site.posts | sort: 'date' %}
+	{% for post in feed reversed %}
+	%div.post
+		%h2
+			%a(href='{{ post.url | relative_url }}') {{ post.title }}
+			{% for category in post.categories %}
+			%a.badge(href='/category/{{ category }}') {{ category }}
+			{% endfor %}
+			%small.right {{ post.date | date: '%Y-%m-%d'}}
+		%p {{ post.excerpt | strip_newlines }}
+	{% endfor %}

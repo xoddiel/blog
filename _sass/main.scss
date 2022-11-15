@@ -1,0 +1,287 @@
+@import 'theme';
+@import 'vars';
+@import 'mixins';
+@import 'highlight';
+
+body {
+  background-color: $background;
+  color: $text;
+  font-family: $font;
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+nav {
+	background-color: $background-dim;
+	padding: 0.5em;
+	text-align: center;
+
+	.container {
+		display: flex;
+		flex-direction: column;
+
+		a {
+			display: block;
+			text-decoration: none;
+			color: $text;
+			margin-left: .5rem;
+			font-size: 1.1em;
+
+			&:first-of-type {
+				font-size: 1.5em;
+				font-weight: bold;
+				margin-left: 0;
+			}
+		
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@include non-mobile {
+		height: 2.5em;
+		display: flex;
+		align-items: center;
+		padding: 0;
+		text-align: left;
+		
+		.container {
+			@include column-container;
+			padding: 0 .5em;
+			flex-direction: row;
+			align-items: baseline;
+			width: 100%;
+		}
+	}
+}
+
+main {
+	background-color: $background-dim;
+	padding: 1em;
+	overflow: auto;
+	margin-top: .5em;
+	max-width: $column;
+	margin-left: auto;
+	margin-right: auto;
+
+	h1, h2, h3, h4, h5, h6 {
+		margin: .2rem 0;
+
+		&:not(:first-child) {
+			margin-top: 1em;
+		}
+	}
+
+	h1 {
+		font-size: 1.8em;
+		border-bottom: lighten($background-dim, 20%) solid 2px;
+		padding-bottom: 0.2em;
+		margin-bottom: 0.3em;
+		margin-left: 0;
+		margin-right: 0;
+		clear: both;
+	}
+
+	h2 {
+		font-size: 1.45em;
+	}
+
+	h3 {
+		font-size: 1.25em;
+	}
+
+	h4 {
+		font-size: 1.15em;
+	}
+
+	h5 {
+		font-size: 1.15em;
+		font-weight: normal;
+		font-style: italic;
+	}
+
+	h6 {
+		font-size: 1em;
+		font-weight: bold;
+		font-style: italic;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		small.right {
+			color: darken($text, 50%);
+			float: right;
+			padding-top: 0.2em;
+		}
+	}
+
+	p > img {
+		object-fit: contain;
+		object-position: center;
+		width: 100%;
+		max-height: $column / 2;
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;
+	}
+
+	.badge {
+		display: none;
+		margin-left: 0.5em;
+		color: darken($text, 50%);
+		font-size: 0.6em;
+		vertical-align: middle;
+		padding-bottom: 0.2em;
+
+		&::before {
+			content: '[ ';
+		}
+
+		&::after {
+			content: ' ]';
+		}
+
+		@include non-mobile {
+			display: inline-block;
+		}
+	}
+
+	a.badge {
+		color: darken($text, 50%);
+		text-decoration: none !important;
+
+		&:hover {
+			color: darken($text, 20%);
+		}
+	}
+
+	.aside {
+		font-size: .8em;
+		text-align: center;
+		width: $column * 0.2;
+		margin: 0 auto;
+		padding: .5em;
+		background-color: darken($background-dim, 2.5%);
+
+		@include non-mobile {
+			margin-top: .2rem;
+			margin-left: .5rem;
+			float: right;
+		}
+
+		img {
+			width: 100%;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0;
+		}
+	}
+
+	a {
+		color: map-get($palette, 'blue');
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	pre {
+		background-color: darken($background-dim, 2.5%);
+		padding: .5em;
+		overflow: auto;
+		tab-size: 2em;
+		font-family: $mono-font;
+		font-size: 1em;
+		line-height: 1.2em;
+				
+		code {
+			padding: 0;
+			margin: 0;
+		}
+	}
+
+	code {
+		background-color: darken($background-dim, 2.5%);
+		padding: .1em .3em;
+		font-family: $mono-font;
+		font-size: 0.85em;
+	}
+
+	table {
+		background-color: darken($background-dim, 1%);
+		margin-left: auto;
+		margin-right: auto;
+		border-collapse: collapse;
+
+		&, th, td {
+			border: 1px solid lighten($background-dim, 5%);
+		}
+
+		th {
+			background-color: lighten($background-dim, 5%);
+			font-weight: normal;
+			padding-top: .4em !important;
+		}
+				
+		td, th {
+			padding: .35rem .5em;
+		}
+	}
+
+	dl {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		border-left: 3px solid lighten($background-dim, 5%);
+		padding-left: 0.3em;
+				
+		dt {
+			font-weight: bold;
+		}
+	}
+	
+	blockquote {
+		margin: 0;
+		padding: 1em;
+		border-left: .4em lighten($background-dim, 5%) solid;
+		background-color: lighten($background-dim, 2%);
+			
+		* {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		
+		* + * {
+			margin-top: 1em;
+		}
+		
+		> p {			
+			font-style: italic;
+			
+			&::before {
+				content: '" ';
+				font-weight: bold;
+			} 
+			
+			&::after {
+				content: ' "';
+				font-weight: bold;
+			}
+		}
+	}
+
+	.posts .post {
+		h2:first-of-type {
+			margin: .5em 0;
+		}
+
+		p {
+			margin: .5em 0;
+		}
+	}
+}

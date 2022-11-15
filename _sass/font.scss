@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'JetBrains-Mono';
+  src: local('JetBrains-Mono'), url('/assets/font/Mono-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JetBrains-Mono';
+  src: local('JetBrains-Mono'), url('/assets/font/Mono-Italic.ttf') format('truetype');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url('/assets/font/Lato-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url('/assets/font/Lato-Italic.ttf') format('truetype');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url('/assets/font/Lato-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url('/assets/font/Lato-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
