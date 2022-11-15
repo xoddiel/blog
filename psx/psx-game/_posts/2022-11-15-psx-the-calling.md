@@ -9,8 +9,8 @@ the first PlayStation (*PSX*) in [rust](https://en.wikipedia.org/wiki/Rust_(prog
 *Rustacian*, this naturally piqued my interest. Unfortunately the crate is incomplete, and is missing many necessary 
 features, such as doing geometry calculations using the Geometry Transformation Engine (*GTE*). Not to be deterred, 
 I scoured the source code to figure out how the crate compiles Rust code into a *PSX* executable, and from there I 
-followed the excellent, though unofficial, [*PSX* documentation](https://psx-spx.consoledev.net/) by [nocash](https://
-problemkaputt.de/) to fill in the gaps. How far did I get? Well, far enough to render the famous 
+followed the excellent, though unofficial, [*PSX* documentation](https://psx-spx.consoledev.net/) by 
+[nocash](https://problemkaputt.de/) to fill in the gaps. How far did I get? Well, far enough to render the famous 
 [hello triangle](https://learnopengl.com/Getting-started/Hello-Triangle). We will not go as far in this post, since 
 that would make it ridiculously long, but the hello triangle is gonna be one of our big milestones for this series. 
 
@@ -25,17 +25,17 @@ wouldn't have been possible. If you want to help them out, here is their [patreo
 
 ## *PSX* crate
 Before I get into the meat of things, let me motivate my choice of the programming language for this series. We will be 
-building a *PSX* game using the rust programming language. Why rust? Well, to quote [Mark Rendle](https://youtu.be/
-vcFBwt1nu2U?t=2192):
+building a *PSX* game using the rust programming language. Why rust? Well, to quote 
+[Mark Rendle](https://youtu.be/vcFBwt1nu2U?t=2192):
 
 > Rust is very close to being the perfect language.
 
-Basically, the language is safe, fast, low-level and comprehensive. You can learn the basics of rust [here](https://
-doc.rust-lang.org/stable/rust-by-example/index.html), and install it by following the instructions [here](https://
-rustup.rs/). Make sure to install the `nightly` toolchain, since we need a few unstable features to make this all work. 
-I will try to explain everything that I'm doing, but I will also not spend too much time on explaining the basics of 
-programming and whatnot. I will also be assuming that you are doing everything on a linux-based system, although you 
-should be able to do everything on Windows as well. With that in mind, let's begin!
+Basically, the language is safe, fast, low-level and comprehensive. You can learn the basics of rust 
+[here](https://doc.rust-lang.org/stable/rust-by-example/index.html), and install it by following the instructions 
+[here](https://rustup.rs/). Make sure to install the `nightly` toolchain, since we need a few unstable features to 
+make this all work. I will try to explain everything that I'm doing, but I will also not spend too much time on 
+explaining the basics of programming and whatnot. I will also be assuming that you are doing everything on a linux-based 
+system, although you should be able to do everything on Windows as well. With that in mind, let's begin!
 
 Let's first create our binary crate:
 
@@ -51,9 +51,10 @@ compiler backend) have a native support for *PSX* executable files, so we will h
 define our compilation target.
 
 First we have to create a [target specification file](https://rust-lang.github.io/rfcs/0131-target-specification.html).
-This is a simple JSON file that describes the target system (size of memory addresses, the [target triplet](https://
-wiki.osdev.org/Target_Triplet), CPU features, etc.). Here we will borrow a file from the aforementioned `psx` crate, 
-specifically [mipsel-sony-psx.json](https://github.com/ayrtonm/psx-sdk-rs/blob/master/mipsel-sony-psx.json).
+This is a simple JSON file that describes the target system (size of memory addresses, the 
+[target triplet](https://wiki.osdev.org/Target_Triplet), CPU features, etc.). Here we will borrow a file from the 
+aforementioned `psx` crate, specifically 
+[mipsel-sony-psx.json](https://github.com/ayrtonm/psx-sdk-rs/blob/master/mipsel-sony-psx.json).
 
 ```json
 {
@@ -199,8 +200,8 @@ structure. Next, this funny `!` return type. That's an operator right, not a typ
 > `fn exit(code: i32) -> !` exits the process without ever returning, and so returns `!`.
 
 Alright, so I don't think this is the clearest example they could've chosen, but I think it will become more 
-understandable when we check one of the [rust book articles](https://doc.rust-lang.org/book/ch09-03-to-panic-or-not-to-
-panic.html) on `panic!`:
+understandable when we check one of the 
+[rust book articles](https://doc.rust-lang.org/book/ch09-03-to-panic-or-not-to-panic.html) on `panic!`:
 
 > When code panics, there’s no way to recover.
 
@@ -244,12 +245,13 @@ is? There is no `crt0.o` file available for our target on our system. We will th
 Furthermore, the linker has no idea into which bits of RAM should our code be loaded, where should our stack be, nor 
 does it know how to produce the *PSX* executable file format.
 
-Right, so let's finally create our *PSX* binary. First, we will add something called a [linker script](https://
-wiki.osdev.org/Linker_Scripts). It defines how the linker should structure our output file, which parts of the RAM 
-will our objects be loaded into and some other little things. We will again ~~steal~~ borrow some code from the `psx` 
-crate. Specifically a file called [psexe.ld](https://github.com/ayrtonm/psx-sdk-rs/blob/master/psx/psexe.ld) located in 
-`psx/`. You can just copy it into the root of your project, but note that I've modified it a bit in our example here. 
-Namely, I've renamed the two occurrences of `__start` to `_start` (with just one underscore). 
+Right, so let's finally create our *PSX* binary. First, we will add something called a 
+[linker script](https://wiki.osdev.org/Linker_Scripts). It defines how the linker should structure our output file, 
+which parts of the *RAM* will our objects be loaded into and some other little things. We will again ~~steal~~ borrow 
+some code from the `psx` crate. Specifically a file called 
+[psexe.ld](https://github.com/ayrtonm/psx-sdk-rs/blob/master/psx/psexe.ld) located in `psx/`. You can just copy it into 
+the root of your project, but note that I've modified it a bit in our example here. Namely, I've renamed the two 
+occurrences of `__start` to `_start` (with just one underscore). 
 
 ```ld-script
 /* some constants defining our address space */
@@ -397,9 +399,10 @@ build-std-features = ['compiler-builtins-mem']
 rustflags = ['-Clink-arg=-Tpsexe.ld', '-Clink-arg=--oformat=binary']
 ```
 
-Here we are telling `rustc` to use our linker script and to link our binary into a flat file (not [ELF](https://
-en.wikipedia.org/wiki/Executable_and_Linkable_Format) or [PE](https://en.wikipedia.org/wiki/Portable_Executable)). Now 
-let's implement our true entry point. We will leave out constructors and destructors for now.
+Here we are telling `rustc` to use our linker script and to link our binary into a flat file (not 
+[ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) or 
+[PE](https://en.wikipedia.org/wiki/Portable_Executable)). Now let's implement our true entry point. We will leave out 
+constructors and destructors for now.
 
 ```rust
 #![no_std]
@@ -561,10 +564,10 @@ automatically. Quite handy!
 
 From here on, I would like to encourage you to play around a bit! Exploration is the best way to learn new 
 things, after all. With some help form the [PSX docs](https://psx-spx.consoledev.net), see if you can implement a 
-printing function yourself. You will unfortunately have to make use of the inline assembly macro, [`asm!`](https://
-doc.rust-lang.org/core/arch/macro.asm.html), to do that. As a hint, I'll say that the [*PSX BIOS*](https://psx-
-spx.consoledev.net/kernelbios/#bios-function-summary) implements a whole bunch of standard *clib* functions 
-(although, some don't seem to work, so watch out for that).
+printing function yourself. You will unfortunately have to make use of the inline assembly macro, 
+[`asm!`](https://doc.rust-lang.org/core/arch/macro.asm.html), to do that. As a hint, I'll say that the 
+[*PSX BIOS*](https://psx-spx.consoledev.net/kernelbios/#bios-function-summary) implements a whole bunch of standard 
+*clib* functions (although, some don't seem to work, so watch out for that).
 
-Oh, and just a reminder, all of the source code for this part of the project can be found [here](https://github.com
-/xoddiel/psx-game/tree/blog/part-1).
+Oh, and just a reminder, all of the source code for this part of the project can be found 
+[here](https://github.com/xoddiel/psx-game/tree/blog/part-1).
