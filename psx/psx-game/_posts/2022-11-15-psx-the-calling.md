@@ -16,7 +16,7 @@ that would make it ridiculously long, but the hello triangle is gonna be one of 
 
 ![Hello triangle](/assets/img/psx-the-calling/hello-triangle.jpg)
 
-The source code for this project can be found at my GitHub [`xoddiel/psx-game`](https://github.com/xoddiel/psx-game). 
+The source code for this project can be found on my GitHub [`xoddiel/psx-game`](https://github.com/xoddiel/psx-game). 
 This specific post relates to code tagged as [`blog/part-1`](https://github.com/xoddiel/psx-game/tree/blog/part-1).
 
 One thing I'd like to mention: it appears that nocash (Martin Korth) is currently homeless in Hamburg (see the bottom of 
@@ -54,7 +54,7 @@ First we have to create a [target specification file](https://rust-lang.github.i
 This is a simple JSON file that describes the target system (size of memory addresses, the 
 [target triplet](https://wiki.osdev.org/Target_Triplet), CPU features, etc.). Here we will borrow a file from the 
 aforementioned `psx` crate, specifically 
-[mipsel-sony-psx.json](https://github.com/ayrtonm/psx-sdk-rs/blob/master/mipsel-sony-psx.json).
+[mipsel-sony-psx.json](https://github.com/ayrtonm/psx-sdk-rs/blob/cff8943bd7bcdad0fd5f5d41cdbcd35ec0c729e1/mipsel-sony-psx.json).
 
 ```json
 {
@@ -192,7 +192,7 @@ fn main() {
 
 Right, so there are a few things worth noting here. First, the `PanicInfo` argument. You might've been expecting a 
 string here, but when we use the `panic!` macro, rust will actually bundle a little bit more information with our error 
-than just the message, such as the file where the panic was raised. That's is all bundled into this `PanicInfo` 
+than just the message, such as the file where the panic was raised. All that metadata is bundled into this `PanicInfo` 
 structure. Next, this funny `!` return type. That's an operator right, not a type?! Well, it's something called the 
 *never type*. When you check [it's documentation](https://doc.rust-lang.org/std/primitive.never.html), you'll find that:
 
@@ -232,12 +232,12 @@ you might say, "But Xoddiel, the `main` function is like *right there*!" And you
 Well, I think I should let you in on a little secret kept from you by compiler manufacturers for generations. The `main` 
 function is actually not the entry point of executable binaries. When you compile a *C* program, the compiler actually 
 adds in a magical function, often times called `_start`. Ever wondered who initializes your static variables? Well, if 
-they are uninitialized, they will make use of something called the [.bss](https://en.wikipedia.org/wiki/.bss) section. 
+they are uninitialized, they will make use of something called the [`.bss`](https://en.wikipedia.org/wiki/.bss) section. 
 But sometimes, initialization of your static variables has some logic to it. In those cases the code is wrapped into a 
 function and added to something called the *constructors table* (`.ctors`). Similar thing happens with *destructors*, 
 which are kept in their own table (`.dtors`). The `_start` function calls our constructors one-by-one, then calls our 
 `main` function, and then finally calls all the destructor functions before the binary exits. Where does this magic 
-function come from? Well, the linker implicitly links in a file called [crt0.o](https://en.wikipedia.org/wiki/Crt0), 
+function come from? Well, the linker implicitly links in a file called [`crt0.o`](https://en.wikipedia.org/wiki/Crt0), 
 provided by your compiler system, which contains this function.
 
 With that in mind, thinking back to our problems with the standard library, can you guess what our problem here 
@@ -249,9 +249,9 @@ Right, so let's finally create our *PSX* binary. First, we will add something ca
 [linker script](https://wiki.osdev.org/Linker_Scripts). It defines how the linker should structure our output file, 
 which parts of the *RAM* will our objects be loaded into and some other little things. We will again ~~steal~~ borrow 
 some code from the `psx` crate. Specifically a file called 
-[psexe.ld](https://github.com/ayrtonm/psx-sdk-rs/blob/master/psx/psexe.ld) located in `psx/`. You can just copy it into 
-the root of your project, but note that I've modified it a bit in our example here. Namely, I've renamed the two 
-occurrences of `__start` to `_start` (with just one underscore). 
+[psexe.ld](https://github.com/ayrtonm/psx-sdk-rs/blob/cff8943bd7bcdad0fd5f5d41cdbcd35ec0c729e1/psx/psexe.ld) located in 
+`psx/`. You can just copy it into the root of your project, but note that I've modified it a bit in our example here. 
+Namely, I've renamed the two occurrences of `__start` to `_start` (with just one underscore). 
 
 ```ld-script
 /* some constants defining our address space */
