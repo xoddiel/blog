@@ -114,8 +114,15 @@ main {
 	h1, h2, h3, h4, h5, h6 {
 		small.right {
 			color: darken($text, 50%);
-			float: right;
-			padding-top: 0.2em;
+			font-size: 0.6em;
+			display: block;
+			
+			@include non-mobile {
+				display: inline-block;
+				font-size: 1em;
+				float: right;
+				padding-top: 0.2em;
+			}
 		}
 	}
 
