@@ -374,9 +374,9 @@ statements. You can read the entire `SECTIONS` statement like a recipe telling t
 file. Every statement either appends some data, adds padding for alignment, or stores the current address into a 
 variable. All the lines like `NAME = value;` are just variables. They make our file easier to read and are in no shape 
 or form reflected in our binary. Exception being all the lines like `NAME = .;` in our `SECTIONS` statement. These lines 
-tell the linker to declare a variable and put the current address into it. For instance `__ctors_start = .;` tells the 
-linker to create a static variable `__ctors_start` and put the address of the constructors tables into it. We will use 
-it later.
+tell the linker where different symbols are linked to. For instance `__ctors_start = .;` tells the linker that the 
+symbol `__ctors_start` is located at the current address (that's what that `.` means). We will use these  symbols later 
+in the series.
 
 `QUAD(0)` and `LONG(0)` tells the linker to write 8 zero bytes and 4 zero bytes respectively. `MEMORY` tells the linker 
 what sections of the address space are available on the target machine. We tell the linker that there is some file header, 
