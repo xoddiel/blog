@@ -5,7 +5,7 @@ layout: default
 	='Category: '
 	%i {{ page.title }}
 %div.posts
-	{% assign feed = site.posts | sort: 'date' %}
+	{% assign feed = page.posts | sort: 'date' %}
 	{% for post in feed reversed %}
 	%div.post
 		%h2
